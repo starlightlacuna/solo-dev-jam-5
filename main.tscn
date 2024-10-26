@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=4 uid="uid://chek3442qorv2"]
+[gd_scene load_steps=13 format=4 uid="uid://chek3442qorv2"]
 
 [ext_resource type="Texture2D" uid="uid://co843gr3ep3s3" path="res://Assets/tileset.png" id="1_ip8h3"]
 [ext_resource type="Texture2D" uid="uid://cmbt2w1cpuopa" path="res://Assets/kenney_1-bit-pack/Tilesheet/monochrome_packed.png" id="2_2tsgh"]
 [ext_resource type="Texture2D" uid="uid://b3mrmlnhxveu3" path="res://Assets/kenney_1-bit-pack/Tilesheet/monochrome-transparent_packed.png" id="3_ykdcd"]
-[ext_resource type="PackedScene" uid="uid://h2ugnym5uis6" path="res://tower.tscn" id="4_b6boc"]
-[ext_resource type="Script" path="res://player.gd" id="4_fh7ap"]
-[ext_resource type="Script" path="res://enemy.gd" id="6_3gba1"]
+[ext_resource type="PackedScene" uid="uid://h2ugnym5uis6" path="res://Entities/tower.tscn" id="4_b6boc"]
+[ext_resource type="Script" path="res://Entities/player.gd" id="4_fh7ap"]
+[ext_resource type="Script" path="res://Entities/enemy.gd" id="6_3gba1"]
+[ext_resource type="PackedScene" uid="uid://b6kv2ioeai52w" path="res://Entities/skelly.tscn" id="7_lp8vc"]
+[ext_resource type="Resource" uid="uid://g8bx7c4m26lq" path="res://Entities/Data/Skelly.tres" id="8_bji8s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ocac"]
 resource_name = "Brick"
@@ -1119,6 +1121,7 @@ texture = ExtResource("3_ykdcd")
 17:0/0 = 0
 18:0/0 = 0
 19:0/0 = 0
+19:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 20:0/0 = 0
 21:0/0 = 0
 22:0/0 = 0
@@ -2179,6 +2182,8 @@ texture = ExtResource("3_ykdcd")
 48:21/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_ckhyu"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_6ocac")
 sources/1 = SubResource("TileSetAtlasSource_hr4k7")
 sources/2 = SubResource("TileSetAtlasSource_q6kqp")
@@ -2206,23 +2211,27 @@ position = Vector2(280, 158)
 zoom = Vector2(2, 2)
 
 [node name="Player" type="Node2D" parent="."]
+position = Vector2(11, 224)
 script = ExtResource("4_fh7ap")
+
+[node name="Tower" parent="Player" instance=ExtResource("4_b6boc")]
+
+[node name="Spawner" type="Marker2D" parent="Player"]
+position = Vector2(-24, 0)
 
 [node name="Creatures" type="Node2D" parent="Player"]
 
-[node name="Tower" parent="Player" instance=ExtResource("4_b6boc")]
-position = Vector2(11, 224)
-
-[node name="Spawner" type="Marker2D" parent="Player"]
-position = Vector2(-13, 224)
-
 [node name="Enemy" type="Node2D" parent="."]
+position = Vector2(549, 224)
 script = ExtResource("6_3gba1")
+
+[node name="Tower" parent="Enemy" instance=ExtResource("4_b6boc")]
+
+[node name="Spawner" type="Marker2D" parent="Enemy"]
+position = Vector2(24, 0)
 
 [node name="Creatures" type="Node2D" parent="Enemy"]
 
-[node name="Tower" parent="Enemy" instance=ExtResource("4_b6boc")]
-position = Vector2(548, 224)
-
-[node name="Spawner" type="Marker2D" parent="Enemy"]
-position = Vector2(572, 224)
+[node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
+position = Vector2(-29, -19)
+config = ExtResource("8_bji8s")
