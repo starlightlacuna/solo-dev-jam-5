@@ -2215,6 +2215,8 @@ position = Vector2(11, 224)
 script = ExtResource("4_fh7ap")
 
 [node name="Tower" parent="Player" instance=ExtResource("4_b6boc")]
+collision_layer = 4
+collision_mask = 0
 
 [node name="Spawner" type="Marker2D" parent="Player"]
 position = Vector2(-24, 0)
@@ -2226,6 +2228,8 @@ position = Vector2(549, 224)
 script = ExtResource("6_3gba1")
 
 [node name="Tower" parent="Enemy" instance=ExtResource("4_b6boc")]
+collision_layer = 2
+collision_mask = 0
 
 [node name="Spawner" type="Marker2D" parent="Enemy"]
 position = Vector2(24, 0)
@@ -2233,5 +2237,5 @@ position = Vector2(24, 0)
 [node name="Creatures" type="Node2D" parent="Enemy"]
 
 [node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
-position = Vector2(-29, -19)
+position = Vector2(-422, -39)
 config = ExtResource("8_bji8s")
