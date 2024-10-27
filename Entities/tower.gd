@@ -9,13 +9,17 @@ var health_changed_signal: Signal
 var destroyed_signal: Signal
 
 func _ready() -> void:
-	current_health = max_health
 	if is_player:
 		health_changed_signal = Event.player_tower_health_changed
 		destroyed_signal = Event.player_tower_destroyed
 	else:
 		health_changed_signal = Event.enemy_tower_health_changed
 		destroyed_signal = Event.enemy_tower_destroyed
+
+func initialize(p_max_health: int) -> void:
+	max_health = p_max_health
+	current_health = max_health
+	health_changed_signal.emit(current_health)
 
 func receive_damage(amount: int) -> void:
 	current_health = max(current_health - amount, 0)

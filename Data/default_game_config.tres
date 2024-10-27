@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GameConfig" load_steps=2 format=3 uid="uid://x8pojjefvpld"]
+
+[ext_resource type="Script" path="res://Data/game_config.gd" id="1_v7wn8"]
+
+[resource]
+script = ExtResource("1_v7wn8")
+player_tower_max_health = 100
+enemy_tower_max_health = 100

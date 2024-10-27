@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://chek3442qorv2"]
+[gd_scene load_steps=19 format=4 uid="uid://chek3442qorv2"]
 
 [ext_resource type="Texture2D" uid="uid://co843gr3ep3s3" path="res://Assets/tileset.png" id="1_ip8h3"]
 [ext_resource type="Script" path="res://main.gd" id="1_wwu4c"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Entities/enemy.gd" id="6_3gba1"]
 [ext_resource type="PackedScene" uid="uid://b6kv2ioeai52w" path="res://Entities/skelly.tscn" id="7_lp8vc"]
 [ext_resource type="Resource" uid="uid://g8bx7c4m26lq" path="res://Entities/Data/Skelly.tres" id="8_bji8s"]
+[ext_resource type="Script" path="res://ui.gd" id="10_s4k1f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ocac"]
 resource_name = "Brick"
@@ -2270,6 +2271,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("10_s4k1f")
 
 [node name="PlayerTowerHealthBar" type="ProgressBar" parent="UI"]
 custom_minimum_size = Vector2(200, 10)
