@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreatureConfig" load_steps=2 format=3 uid="uid://nccoqcw567r7"]
+
+[ext_resource type="Script" path="res://Entities/Data/creature_config.gd" id="1_443ln"]
+
+[resource]
+script = ExtResource("1_443ln")
+max_health = 25
+attack_damage = 5
+attack_cooldown = 2.0
+move_speed = 60.0
+gravity = 200.0

@@ -1,0 +1,139 @@
+[gd_scene load_steps=11 format=3 uid="uid://snggw4c0unvi"]
+
+[ext_resource type="Texture2D" uid="uid://bs8xglqn4vawa" path="res://Assets/Brute.png" id="1_lfja4"]
+[ext_resource type="Script" path="res://Entities/brute.gd" id="1_psx55"]
+[ext_resource type="Resource" uid="uid://nccoqcw567r7" path="res://Entities/Data/brute_config.tres" id="2_wfww0"]
+[ext_resource type="Texture2D" uid="uid://koiiqribphhe" path="res://Assets/Punch.png" id="3_atb88"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tlo10"]
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oc5ay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07f6e"]
+size = Vector2(15, 20)
+
+[sub_resource type="Animation" id="Animation_i7wvq"]
+resource_name = "Attack"
+length = 0.8
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageArea/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-13, -15), Vector2(-13, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageArea/Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"deal_damage"
+}, {
+"args": [],
+"method": &"start_attack_cooldown"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4fqgr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageArea/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-13, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageArea/Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o3biq"]
+_data = {
+"Attack": SubResource("Animation_i7wvq"),
+"RESET": SubResource("Animation_4fqgr")
+}
+
+[node name="Brute" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_psx55")
+config = ExtResource("2_wfww0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -10)
+texture = ExtResource("1_lfja4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_tlo10")
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(-7, -10)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_oc5ay")
+
+[node name="DamageArea" type="Area2D" parent="."]
+position = Vector2(-2, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(-12.5, -10)
+shape = SubResource("RectangleShape2D_07f6e")
+
+[node name="Sprite2D" type="Sprite2D" parent="DamageArea"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-13, -8)
+texture = ExtResource("3_atb88")
+offset = Vector2(0.5, 0.5)
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o3biq")
+}
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

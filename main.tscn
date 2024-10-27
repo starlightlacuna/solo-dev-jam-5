@@ -7,11 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://h2ugnym5uis6" path="res://Entities/tower.tscn" id="4_b6boc"]
 [ext_resource type="Script" path="res://Entities/player.gd" id="4_fh7ap"]
 [ext_resource type="Script" path="res://Entities/enemy.gd" id="6_3gba1"]
-[ext_resource type="PackedScene" uid="uid://b6kv2ioeai52w" path="res://Entities/skelly.tscn" id="7_lp8vc"]
 [ext_resource type="Texture2D" uid="uid://cqu4m6n5kviym" path="res://Assets/Ballista.png" id="7_nj5e5"]
-[ext_resource type="Resource" uid="uid://g8bx7c4m26lq" path="res://Entities/Data/skelly_config.tres" id="8_bji8s"]
+[ext_resource type="PackedScene" uid="uid://ca5iy6mqquw5t" path="res://Entities/peasant.tscn" id="8_ajhle"]
 [ext_resource type="PackedScene" uid="uid://cbf6e0oe1foas" path="res://Entities/knight.tscn" id="8_mesmd"]
 [ext_resource type="Script" path="res://ui.gd" id="10_s4k1f"]
+[ext_resource type="PackedScene" uid="uid://snggw4c0unvi" path="res://Entities/brute.tscn" id="11_sldpc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ocac"]
 resource_name = "Brick"
@@ -2257,10 +2257,10 @@ position = Vector2(-24, 0)
 [node name="Creatures" type="Node" parent="Player"]
 
 [node name="Knight" parent="Player/Creatures" instance=ExtResource("8_mesmd")]
-position = Vector2(113, 139)
+position = Vector2(243, 219)
 
-[node name="Knight2" parent="Player/Creatures" instance=ExtResource("8_mesmd")]
-position = Vector2(155, 168)
+[node name="Peasant" parent="Player/Creatures" instance=ExtResource("8_ajhle")]
+position = Vector2(199, 219)
 
 [node name="Bolts" type="Node" parent="Player"]
 
@@ -2278,23 +2278,10 @@ collision_mask = 0
 [node name="Spawner" type="Marker2D" parent="Enemy"]
 position = Vector2(24, 0)
 
-[node name="Creatures" type="Node2D" parent="Enemy"]
+[node name="Creatures" type="Node" parent="Enemy"]
 
-[node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
-position = Vector2(-205, -35)
-config = ExtResource("8_bji8s")
-
-[node name="Skelly2" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
-position = Vector2(-23, -11)
-config = ExtResource("8_bji8s")
-
-[node name="Skelly3" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
-position = Vector2(-180, -26)
-config = ExtResource("8_bji8s")
-
-[node name="Skelly4" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
-position = Vector2(-160, -23)
-config = ExtResource("8_bji8s")
+[node name="Brute" parent="Enemy/Creatures" instance=ExtResource("11_sldpc")]
+position = Vector2(289, 216)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

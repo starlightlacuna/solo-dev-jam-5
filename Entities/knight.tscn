@@ -74,13 +74,15 @@ script = ExtResource("1_615eb")
 config = ExtResource("2_ccb2b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
 texture = ExtResource("2_sgbmo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_m363d")
 
 [node name="AttackArea" type="Area2D" parent="."]
-position = Vector2(6, 0)
+position = Vector2(6, -8)
 collision_layer = 0
 collision_mask = 2
 
@@ -88,7 +90,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_ximfi")
 
 [node name="DamageArea" type="Area2D" parent="."]
-position = Vector2(13, 0)
+position = Vector2(13, -8)
 collision_layer = 0
 collision_mask = 2
 
