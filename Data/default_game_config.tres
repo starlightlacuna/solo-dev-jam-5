@@ -14,3 +14,6 @@ ballista_angular_speed = 20.0
 bolt_speed = 200.0
 bolt_damage = 2
 bolt_gravity = 150.0
+player_resource_amount = 0
+player_resource_gain = 20
+player_resource_cooldown = 1.0

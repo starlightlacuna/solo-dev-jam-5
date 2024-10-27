@@ -6,6 +6,7 @@ extends Node2D
 @onready var bolt_source: Marker2D = ballista.get_node("BoltSource")
 @onready var ballista_attack_timer: Timer = ballista.get_node("AttackTimer")
 @onready var bolts: Node = $Bolts
+@onready var resource_timer: Timer = $ResourceTimer
 const bolt_scene: PackedScene = preload("res://Entities/bolt.tscn")
 
 #region Game Settings
@@ -15,6 +16,7 @@ var ballista_angular_speed: float
 var bolt_speed: float
 var bolt_damage: int
 var bolt_gravity: float
+var resource_gain: int
 #endregion
 
 var can_ballista_shoot: bool = true
@@ -22,9 +24,16 @@ var shoot_ballista: bool = false
 var raise_ballista: bool = false
 var lower_ballista: bool = false
 
+var resource_amount: int:
+	set(value):
+		resource_amount = value
+		Event.resource_amount_changed.emit(value)
+
 func _process(delta: float) -> void:
 	if shoot_ballista and can_ballista_shoot:
-		spawn_bolt()
+		if resource_amount >= 5:
+			resource_amount -= 5
+			spawn_bolt()
 	if raise_ballista:
 		var new_angle: float = clampf(
 			ballista.get_global_rotation_degrees() - ballista_angular_speed * delta,
@@ -42,6 +51,9 @@ func _process(delta: float) -> void:
 
 func _on_attack_timer_timeout() -> void:
 	can_ballista_shoot = true
+
+func _on_resource_timer_timeout() -> void:
+	resource_amount += resource_gain
 
 #region Button Handlers
 # These are code crimes. I think that ideally we wouldn't be connected directly
@@ -72,6 +84,9 @@ func initialize(game_config: GameConfig) -> void:
 	bolt_speed = game_config.bolt_speed
 	bolt_damage = game_config.bolt_damage
 	bolt_gravity = game_config.bolt_gravity
+	resource_amount = game_config.player_resource_amount
+	resource_gain = game_config.player_resource_gain
+	resource_timer.set_wait_time(game_config.player_resource_cooldown)
 
 func spawn_bolt() -> void:
 	var bolt: Bolt = bolt_scene.instantiate()

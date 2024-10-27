@@ -2257,6 +2257,9 @@ position = Vector2(-24, 0)
 
 [node name="Bolts" type="Node" parent="Player"]
 
+[node name="ResourceTimer" type="Timer" parent="Player"]
+autostart = true
+
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(549, 224)
 script = ExtResource("6_3gba1")
@@ -2284,9 +2287,11 @@ config = ExtResource("8_bji8s")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("10_s4k1f")
 
 [node name="PlayerTowerHealthBar" type="ProgressBar" parent="UI"]
@@ -2344,7 +2349,15 @@ text = "Raise"
 layout_mode = 2
 text = "Lower"
 
+[node name="ResourceLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 243.0
+offset_top = 236.0
+offset_right = 283.0
+offset_bottom = 259.0
+
 [connection signal="timeout" from="Player/Tower/Ballista/AttackTimer" to="Player" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="Player/ResourceTimer" to="Player" method="_on_resource_timer_timeout"]
 [connection signal="toggled" from="UI/ShootButton" to="Player" method="_on_shoot_button_toggled"]
 [connection signal="button_down" from="UI/AngleContainer/RaiseButton" to="Player" method="_on_raise_button_button_down"]
 [connection signal="button_up" from="UI/AngleContainer/RaiseButton" to="Player" method="_on_raise_button_button_up"]

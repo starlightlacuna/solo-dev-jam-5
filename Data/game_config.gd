@@ -11,3 +11,6 @@ extends Resource
 @export var bolt_speed: float = 200.0
 @export var bolt_damage: int = 2
 @export var bolt_gravity: float = 150.0
+@export var player_resource_amount: int = 100
+@export var player_resource_gain: int = 50
+@export var player_resource_cooldown: float = 1.0
