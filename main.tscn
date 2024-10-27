@@ -2237,22 +2237,23 @@ collision_layer = 4
 collision_mask = 0
 is_player = true
 
-[node name="Spawner" type="Marker2D" parent="Player"]
-position = Vector2(-24, 0)
-
-[node name="Creatures" type="Node2D" parent="Player"]
-
-[node name="Ballista" type="Node2D" parent="Player"]
+[node name="Ballista" type="Node2D" parent="Player/Tower"]
+unique_name_in_owner = true
 position = Vector2(21, -80)
 
-[node name="Sprite2D" type="Sprite2D" parent="Player/Ballista"]
+[node name="Sprite2D" type="Sprite2D" parent="Player/Tower/Ballista"]
 rotation = 0.785398
 texture = ExtResource("7_nj5e5")
 offset = Vector2(-2, 2)
 
-[node name="BoltSource" type="Marker2D" parent="Player/Ballista"]
+[node name="BoltSource" type="Marker2D" parent="Player/Tower/Ballista"]
 
-[node name="AttackTimer" type="Timer" parent="Player/Ballista"]
+[node name="AttackTimer" type="Timer" parent="Player/Tower/Ballista"]
+
+[node name="Spawner" type="Marker2D" parent="Player"]
+position = Vector2(-24, 0)
+
+[node name="Creatures" type="Node2D" parent="Player"]
 
 [node name="Bolts" type="Node" parent="Player"]
 
@@ -2270,15 +2271,15 @@ position = Vector2(24, 0)
 [node name="Creatures" type="Node2D" parent="Enemy"]
 
 [node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
-position = Vector2(-422, -39)
+position = Vector2(-205, -35)
 config = ExtResource("8_bji8s")
 
 [node name="Skelly2" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
-position = Vector2(-434, -33)
+position = Vector2(-217, -29)
 config = ExtResource("8_bji8s")
 
 [node name="Skelly3" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
-position = Vector2(-411, -30)
+position = Vector2(-194, -26)
 config = ExtResource("8_bji8s")
 
 [node name="UI" type="Control" parent="."]
@@ -2319,4 +2320,33 @@ value = 50.0
 fill_mode = 1
 show_percentage = false
 
-[connection signal="timeout" from="Player/Ballista/AttackTimer" to="Player" method="_on_attack_timer_timeout"]
+[node name="ShootButton" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 268.0
+offset_right = 107.0
+offset_bottom = 299.0
+toggle_mode = true
+text = "Shoot"
+
+[node name="AngleContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 249.0
+offset_right = 52.0
+offset_bottom = 315.0
+
+[node name="RaiseButton" type="Button" parent="UI/AngleContainer"]
+layout_mode = 2
+text = "Raise"
+
+[node name="LowerButton" type="Button" parent="UI/AngleContainer"]
+layout_mode = 2
+text = "Lower"
+
+[connection signal="timeout" from="Player/Tower/Ballista/AttackTimer" to="Player" method="_on_attack_timer_timeout"]
+[connection signal="toggled" from="UI/ShootButton" to="Player" method="_on_shoot_button_toggled"]
+[connection signal="button_down" from="UI/AngleContainer/RaiseButton" to="Player" method="_on_raise_button_button_down"]
+[connection signal="button_up" from="UI/AngleContainer/RaiseButton" to="Player" method="_on_raise_button_button_up"]
+[connection signal="button_down" from="UI/AngleContainer/LowerButton" to="Player" method="_on_lower_button_button_down"]
+[connection signal="button_up" from="UI/AngleContainer/LowerButton" to="Player" method="_on_lower_button_button_up"]

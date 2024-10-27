@@ -17,4 +17,6 @@ func _on_player_tower_health_changed(value: int) -> void:
 func initialize(game_config: GameConfig) -> void:
 	enemy_tower_health_bar.set_max(game_config.enemy_tower_max_health)
 	player_tower_health_bar.set_max(game_config.player_tower_max_health)
-	
+
+func _on_shoot_button_toggled(toggled_on: bool) -> void:
+	Event.shoot_button_toggled.emit(toggled_on)

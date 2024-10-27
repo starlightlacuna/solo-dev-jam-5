@@ -18,8 +18,8 @@ func initialize(config: BoltConfig) -> void:
 
 func _ready() -> void:
 	current_state = State.MOVING
-	#set_velocity(Vector2(210, 0).rotated(deg_to_rad(90)))
 	set_velocity(initial_velocity)
+	set_global_rotation(Vector2.RIGHT.angle_to(initial_velocity))
 	set_global_position(initial_position)
 
 func _physics_process(delta: float) -> void:
