@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bptvy4jxgr8l0"]
+
+[ext_resource type="Texture2D" uid="uid://cqu4m6n5kviym" path="res://Assets/Ballista.png" id="1_l2w07"]
+
+[node name="Ballista" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+rotation = 0.785398
+texture = ExtResource("1_l2w07")
+offset = Vector2(-2, 2)
+
+[node name="BoltSource" type="Marker2D" parent="."]

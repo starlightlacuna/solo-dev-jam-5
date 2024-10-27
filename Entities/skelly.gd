@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 func _on_attack_timer_timeout() -> void:
 	can_attack = true
 
-## BONUS_TODO: Set up knockback and invulnerability frames
+# BONUS TODO: Set up knockback and invulnerability frames
 func initialize(p_config: CreatureConfig) -> void:
 	max_health = p_config.max_health
 	health = max_health

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://hj2xe4w5kw0a"]
+
+[ext_resource type="Script" path="res://Entities/bolt.gd" id="1_q8a7q"]
+[ext_resource type="Texture2D" uid="uid://f8r66b2kgkuh" path="res://Assets/Bolt.png" id="2_uvqe1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b8poi"]
+radius = 2.0
+height = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f82mf"]
+radius = 4.0
+
+[node name="Bolt" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_q8a7q")
+damage = 2
+bolt_gravity = 150.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.785398
+texture = ExtResource("2_uvqe1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_b8poi")
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(7, 0)
+shape = SubResource("CircleShape2D_f82mf")
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

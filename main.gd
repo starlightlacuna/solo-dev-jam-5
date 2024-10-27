@@ -13,7 +13,7 @@ func _ready() -> void:
 	var initializable: Array = [ui, enemy, player]
 	for node in initializable:
 		node.initialize(game_config)
-	
+	player.spawn_bolt()
 	
 
 func _on_enemy_tower_destroyed() -> void:
