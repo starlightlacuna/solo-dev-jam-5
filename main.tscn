@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=4 uid="uid://chek3442qorv2"]
+[gd_scene load_steps=18 format=4 uid="uid://chek3442qorv2"]
 
 [ext_resource type="Texture2D" uid="uid://co843gr3ep3s3" path="res://Assets/tileset.png" id="1_ip8h3"]
+[ext_resource type="Script" path="res://main.gd" id="1_wwu4c"]
 [ext_resource type="Texture2D" uid="uid://cmbt2w1cpuopa" path="res://Assets/kenney_1-bit-pack/Tilesheet/monochrome_packed.png" id="2_2tsgh"]
 [ext_resource type="Texture2D" uid="uid://b3mrmlnhxveu3" path="res://Assets/kenney_1-bit-pack/Tilesheet/monochrome-transparent_packed.png" id="3_ykdcd"]
 [ext_resource type="PackedScene" uid="uid://h2ugnym5uis6" path="res://Entities/tower.tscn" id="4_b6boc"]
@@ -1170,8 +1171,10 @@ texture = ExtResource("3_ykdcd")
 16:1/0 = 0
 17:1/0 = 0
 18:1/0 = 0
+18:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 19:1/0 = 0
 20:1/0 = 0
+20:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 21:1/0 = 0
 22:1/0 = 0
 23:1/0 = 0
@@ -2188,7 +2191,20 @@ sources/0 = SubResource("TileSetAtlasSource_6ocac")
 sources/1 = SubResource("TileSetAtlasSource_hr4k7")
 sources/2 = SubResource("TileSetAtlasSource_q6kqp")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sc1eo"]
+bg_color = Color(0.201527, 0.201527, 0.201526, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwc3y"]
+bg_color = Color(4.42803e-06, 0.741606, 0.56135, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wbg4s"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y6ev"]
+bg_color = Color(0.741176, 0, 0.180392, 1)
+
 [node name="Main" type="Node2D"]
+script = ExtResource("1_wwu4c")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -167.0
@@ -2203,7 +2219,7 @@ tile_map_data = PackedByteArray("AAALAAsAAgADAAsAAAALAAwAAgADAAwAAAALAA0AAgADAA0
 tile_set = SubResource("TileSet_ckhyu")
 
 [node name="GroundLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAALAA4AAgATAAAAAAAMAA4AAgATAAAAAAANAA4AAgATAAAAAAAOAA4AAgATAAAAAAAPAA4AAgATAAAAAAAQAA4AAgATAAAAAAARAA4AAgATAAAAAAASAA4AAgATAAAAAAATAA4AAgATAAAAAAAUAA4AAgATAAAAAAAVAA4AAgATAAAAAAAWAA4AAgATAAAAAAAXAA4AAgATAAAAAAAYAA4AAgATAAAAAAAZAA4AAgATAAAAAAAaAA4AAgATAAAAAAAbAA4AAgATAAAAAAAcAA4AAgATAAAAAAAdAA4AAgATAAAAAAAeAA4AAgATAAAAAAAfAA4AAgATAAAAAAAgAA4AAgATAAAAAAAhAA4AAgATAAAAAAAiAA4AAgATAAAAAAAjAA4AAgATAAAAAAAkAA4AAgATAAAAAAAlAA4AAgATAAAAAAAmAA4AAgATAAAAAAAnAA4AAgATAAAAAAAoAA4AAgATAAAAAAApAA4AAgATAAAAAAD5/w4AAgATAAAAAAD6/w4AAgATAAAAAAD7/w4AAgATAAAAAAD8/w4AAgATAAAAAAD9/w4AAgATAAAAAAD+/w4AAgATAAAAAAD//w4AAgATAAAAAAAAAA4AAgATAAAAAAABAA4AAgATAAAAAAACAA4AAgATAAAAAAADAA4AAgATAAAAAAAEAA4AAgATAAAAAAAFAA4AAgATAAAAAAAGAA4AAgATAAAAAAAHAA4AAgATAAAAAAAIAA4AAgATAAAAAAAJAA4AAgATAAAAAAAKAA4AAgATAAAAAAA=")
+tile_map_data = PackedByteArray("AAALAA4AAgATAAAAAAAMAA4AAgATAAAAAAANAA4AAgATAAAAAAAOAA4AAgATAAAAAAAPAA4AAgATAAAAAAAQAA4AAgATAAAAAAARAA4AAgATAAAAAAASAA4AAgATAAAAAAATAA4AAgATAAAAAAAUAA4AAgATAAAAAAAVAA4AAgATAAAAAAAWAA4AAgATAAAAAAAXAA4AAgATAAAAAAAYAA4AAgATAAAAAAAZAA4AAgATAAAAAAAaAA4AAgATAAAAAAAbAA4AAgATAAAAAAAcAA4AAgATAAAAAAAdAA4AAgATAAAAAAAeAA4AAgATAAAAAAAfAA4AAgATAAAAAAAgAA4AAgATAAAAAAAhAA4AAgATAAAAAAAiAA4AAgATAAAAAAAjAA4AAgATAAAAAAAkAA4AAgATAAAAAAAlAA4AAgATAAAAAAAmAA4AAgATAAAAAAAnAA4AAgATAAAAAAAoAA4AAgATAAAAAAApAA4AAgATAAAAAAD5/w4AAgATAAAAAAD6/w4AAgATAAAAAAD7/w4AAgATAAAAAAD8/w4AAgATAAAAAAD9/w4AAgATAAAAAAD+/w4AAgATAAAAAAD//w4AAgATAAAAAAAAAA4AAgATAAAAAAABAA4AAgATAAAAAAACAA4AAgATAAAAAAADAA4AAgATAAAAAAAEAA4AAgATAAAAAAAFAA4AAgATAAAAAAAGAA4AAgATAAAAAAAHAA4AAgATAAAAAAAIAA4AAgATAAAAAAAJAA4AAgATAAAAAAAKAA4AAgATAAAAAAD7/wkAAgAUAAEAAAD7/woAAgAUAAEAAAD7/wsAAgAUAAEAAAD7/wwAAgAUAAEAAAD7/w0AAgAUAAEAAAAnAA0AAgASAAEAAAAnAAwAAgASAAEAAAAnAAsAAgASAAEAAAAnAAoAAgASAAEAAAAnAAkAAgASAAEAAAA=")
 tile_set = SubResource("TileSet_ckhyu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -2217,6 +2233,7 @@ script = ExtResource("4_fh7ap")
 [node name="Tower" parent="Player" instance=ExtResource("4_b6boc")]
 collision_layer = 4
 collision_mask = 0
+is_player = true
 
 [node name="Spawner" type="Marker2D" parent="Player"]
 position = Vector2(-24, 0)
@@ -2239,3 +2256,48 @@ position = Vector2(24, 0)
 [node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
 position = Vector2(-422, -39)
 config = ExtResource("8_bji8s")
+
+[node name="Skelly2" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
+position = Vector2(-434, -33)
+config = ExtResource("8_bji8s")
+
+[node name="Skelly3" parent="Enemy/Creatures" instance=ExtResource("7_lp8vc")]
+position = Vector2(-411, -30)
+config = ExtResource("8_bji8s")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerTowerHealthBar" type="ProgressBar" parent="UI"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 0
+offset_left = -8.0
+offset_top = 235.0
+offset_right = 192.0
+offset_bottom = 236.0
+theme_override_styles/background = SubResource("StyleBoxFlat_sc1eo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uwc3y")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="EnemyTowerHealthBar" type="ProgressBar" parent="UI"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 328.0
+offset_top = 235.0
+offset_right = 528.0
+offset_bottom = 239.0
+grow_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_wbg4s")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0y6ev")
+step = 1.0
+value = 50.0
+fill_mode = 1
+show_percentage = false

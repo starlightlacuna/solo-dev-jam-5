@@ -6,6 +6,7 @@ enum State { WALKING, ATTACKING }
 @export var config: CreatureConfig
 
 var health: int
+var max_health: int
 var attack_damage: int
 var move_speed: float
 var gravity: float
@@ -36,7 +37,7 @@ func _physics_process(delta: float) -> void:
 	
 	var x_velocity: float
 	if current_state == State.WALKING:
-		x_velocity = -move_speed
+		x_velocity = -(move_speed * lerp(0.5, 1.0, float(health) / float(max_health)))
 	else:
 		x_velocity = 0.0
 	
@@ -48,11 +49,14 @@ func _on_attack_timer_timeout() -> void:
 
 ## BONUS_TODO: Set up knockback and invulnerability frames
 func initialize(p_config: CreatureConfig) -> void:
-	health = p_config.max_health
+	max_health = p_config.max_health
+	health = max_health
 	attack_damage = p_config.attack_damage
 	move_speed = p_config.move_speed
 	gravity = p_config.gravity
 	attack_timer.set_wait_time(p_config.attack_cooldown)
+	if name == "Skelly2":
+		receive_damage(4)
 
 func deal_damage() -> void:
 	for target in attack_targets:
