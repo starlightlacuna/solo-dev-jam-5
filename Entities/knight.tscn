@@ -1,24 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://ca5iy6mqquw5t"]
+[gd_scene load_steps=10 format=3 uid="uid://cbf6e0oe1foas"]
 
-[ext_resource type="Script" path="res://Entities/peasant.gd" id="1_67xud"]
-[ext_resource type="Texture2D" uid="uid://yvr678fdk55d" path="res://Assets/Peasant.png" id="1_ubhn3"]
-[ext_resource type="Resource" uid="uid://cqtr5dtngwlqq" path="res://Entities/Data/peasant_config.tres" id="2_46k7e"]
-[ext_resource type="Texture2D" uid="uid://bg5utk7ghotxx" path="res://Assets/Thrust.png" id="3_ljl63"]
+[ext_resource type="Script" path="res://Entities/knight.gd" id="1_615eb"]
+[ext_resource type="Resource" uid="uid://bjq1uig5tt5tm" path="res://Entities/Data/knight_config.tres" id="2_ccb2b"]
+[ext_resource type="Texture2D" uid="uid://b65b0p3lb05ms" path="res://Assets/Knight.png" id="2_sgbmo"]
+[ext_resource type="Texture2D" uid="uid://b7p6c4y3ux2ga" path="res://Assets/Slash.png" id="3_qkl5c"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tkd6o"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m363d"]
 radius = 6.0
 height = 14.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_y40l6"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ximfi"]
 radius = 7.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eibxo"]
-radius = 4.0
-height = 18.0
-
-[sub_resource type="Animation" id="Animation_x3wgs"]
+[sub_resource type="Animation" id="Animation_fys72"]
 resource_name = "Attack"
-length = 0.4
+length = 0.6
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -27,7 +23,7 @@ tracks/0/path = NodePath("DamageArea/Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
+"times": PackedFloat32Array(0, 0.2, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -39,7 +35,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.4),
+"times": PackedFloat32Array(0.2, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -50,7 +46,7 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_leb1x"]
+[sub_resource type="Animation" id="Animation_lg72d"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -65,52 +61,49 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_c601h"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0aun5"]
 _data = {
-"Attack": SubResource("Animation_x3wgs"),
-"RESET": SubResource("Animation_leb1x")
+"Attack": SubResource("Animation_fys72"),
+"RESET": SubResource("Animation_lg72d")
 }
 
-[node name="Peasant" type="CharacterBody2D"]
+[node name="Knight" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
-script = ExtResource("1_67xud")
-config = ExtResource("2_46k7e")
+script = ExtResource("1_615eb")
+config = ExtResource("2_ccb2b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ubhn3")
+texture = ExtResource("2_sgbmo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_tkd6o")
+shape = SubResource("CapsuleShape2D_m363d")
 
 [node name="AttackArea" type="Area2D" parent="."]
-position = Vector2(8, 0)
+position = Vector2(6, 0)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource("CircleShape2D_y40l6")
+shape = SubResource("CircleShape2D_ximfi")
 
 [node name="DamageArea" type="Area2D" parent="."]
-position = Vector2(12, 0)
+position = Vector2(13, 0)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_eibxo")
+shape = SubResource("CircleShape2D_ximfi")
 
 [node name="Sprite2D" type="Sprite2D" parent="DamageArea"]
 modulate = Color(1, 1, 1, 0)
-rotation = 0.785398
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_ljl63")
+texture = ExtResource("3_qkl5c")
 
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_c601h")
+"": SubResource("AnimationLibrary_0aun5")
 }
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

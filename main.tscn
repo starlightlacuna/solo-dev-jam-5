@@ -9,8 +9,8 @@
 [ext_resource type="Script" path="res://Entities/enemy.gd" id="6_3gba1"]
 [ext_resource type="PackedScene" uid="uid://b6kv2ioeai52w" path="res://Entities/skelly.tscn" id="7_lp8vc"]
 [ext_resource type="Texture2D" uid="uid://cqu4m6n5kviym" path="res://Assets/Ballista.png" id="7_nj5e5"]
-[ext_resource type="PackedScene" uid="uid://ca5iy6mqquw5t" path="res://Entities/peasant.tscn" id="8_ajhle"]
 [ext_resource type="Resource" uid="uid://g8bx7c4m26lq" path="res://Entities/Data/skelly_config.tres" id="8_bji8s"]
+[ext_resource type="PackedScene" uid="uid://cbf6e0oe1foas" path="res://Entities/knight.tscn" id="8_mesmd"]
 [ext_resource type="Script" path="res://ui.gd" id="10_s4k1f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ocac"]
@@ -2256,11 +2256,11 @@ position = Vector2(-24, 0)
 
 [node name="Creatures" type="Node" parent="Player"]
 
-[node name="Peasant" parent="Player/Creatures" instance=ExtResource("8_ajhle")]
-position = Vector2(57, 180)
+[node name="Knight" parent="Player/Creatures" instance=ExtResource("8_mesmd")]
+position = Vector2(113, 139)
 
-[node name="Peasant2" parent="Player/Creatures" instance=ExtResource("8_ajhle")]
-position = Vector2(81, 181)
+[node name="Knight2" parent="Player/Creatures" instance=ExtResource("8_mesmd")]
+position = Vector2(155, 168)
 
 [node name="Bolts" type="Node" parent="Player"]
 
@@ -2399,3 +2399,4 @@ text = "Wizard
 [connection signal="button_down" from="UI/AngleContainer/LowerButton" to="Player" method="_on_lower_button_button_down"]
 [connection signal="button_up" from="UI/AngleContainer/LowerButton" to="Player" method="_on_lower_button_button_up"]
 [connection signal="pressed" from="UI/UnitsContainer/PeasantButton" to="Player" method="_on_peasant_button_pressed"]
+[connection signal="pressed" from="UI/UnitsContainer/KnightButton" to="Player" method="_on_knight_button_pressed"]

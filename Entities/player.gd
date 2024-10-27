@@ -3,6 +3,7 @@ extends Node2D
 
 const bolt_scene: PackedScene = preload("res://Entities/bolt.tscn")
 const peasant_scene: PackedScene = preload("res://Entities/peasant.tscn")
+const knight_scene: PackedScene = preload("res://Entities/knight.tscn")
 
 @onready var tower: Tower = $Tower
 @onready var ballista: Node2D = %Ballista
@@ -81,6 +82,12 @@ func _on_peasant_button_pressed() -> void:
 	var new_peasant: Peasant = peasant_scene.instantiate()
 	new_peasant.set_global_position(spawner.get_global_position())
 	creatures.add_child(new_peasant)
+
+func _on_knight_button_pressed() -> void:
+	var new_knight: Knight = knight_scene.instantiate()
+	new_knight.set_global_position(spawner.get_global_position())
+	creatures.add_child(new_knight)
+
 #endregion
 	
 func initialize(game_config: GameConfig) -> void:
