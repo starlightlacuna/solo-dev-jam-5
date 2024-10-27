@@ -14,3 +14,5 @@ extends Resource
 @export var player_resource_amount: int = 100
 @export var player_resource_gain: int = 50
 @export var player_resource_cooldown: float = 1.0
+@export var peasant_cost: int = 100
+@export var knight_cost: int = 300

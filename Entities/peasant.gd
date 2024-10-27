@@ -1,4 +1,4 @@
-class_name Skelly
+class_name Peasant
 extends CharacterBody2D
 
 enum State { WALKING, ATTACKING }
@@ -27,8 +27,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	attack_targets = attack_area.get_overlapping_bodies()
 	if attack_targets.size() > 0:
+		current_state = State.ATTACKING
 		if can_attack:
-			current_state = State.ATTACKING
 			can_attack = false
 			animation_player.play("Attack")
 	else:
@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	
 	var x_velocity: float
 	if current_state == State.WALKING:
-		x_velocity = -(move_speed * lerp(0.5, 1.0, float(health) / float(max_health)))
+		x_velocity = (move_speed * lerp(0.5, 1.0, float(health) / float(max_health)))
 	else:
 		x_velocity = 0.0
 	

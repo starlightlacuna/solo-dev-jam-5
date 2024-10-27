@@ -1,13 +1,17 @@
 class_name Player
 extends Node2D
 
+const bolt_scene: PackedScene = preload("res://Entities/bolt.tscn")
+const peasant_scene: PackedScene = preload("res://Entities/peasant.tscn")
+
 @onready var tower: Tower = $Tower
 @onready var ballista: Node2D = %Ballista
 @onready var bolt_source: Marker2D = ballista.get_node("BoltSource")
 @onready var ballista_attack_timer: Timer = ballista.get_node("AttackTimer")
 @onready var bolts: Node = $Bolts
 @onready var resource_timer: Timer = $ResourceTimer
-const bolt_scene: PackedScene = preload("res://Entities/bolt.tscn")
+@onready var spawner: Marker2D = $Spawner
+@onready var creatures: Node = $Creatures
 
 #region Game Settings
 var ballista_min_angle: float
@@ -72,6 +76,11 @@ func _on_raise_button_button_up() -> void:
 
 func _on_shoot_button_toggled(toggled_on: bool) -> void:
 	shoot_ballista = toggled_on
+
+func _on_peasant_button_pressed() -> void:
+	var new_peasant: Peasant = peasant_scene.instantiate()
+	new_peasant.set_global_position(spawner.get_global_position())
+	creatures.add_child(new_peasant)
 #endregion
 	
 func initialize(game_config: GameConfig) -> void:
