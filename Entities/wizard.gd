@@ -28,8 +28,6 @@ var firebolt_gravity: float
 func _ready() -> void:
 	if config and firebolt_config:
 		initialize(config, firebolt_config, firebolts_group)
-	# `initialize` should be called before this node is ready, so 
-	# `firebolts_group` MUST have a value
 	assert(firebolts_group, "Projectiles Group not set!")
 	current_state = State.WALKING
 	can_attack = true

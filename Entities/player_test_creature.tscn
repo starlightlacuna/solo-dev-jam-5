@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://boq82an1wpwow"]
+
+[ext_resource type="Texture2D" uid="uid://b65b0p3lb05ms" path="res://Assets/Knight.png" id="1_qbtsn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y2k6c"]
+radius = 7.0
+height = 16.0
+
+[node name="PlayerTestCreature" type="StaticBody2D"]
+position = Vector2(406, 224)
+collision_layer = 4
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_qbtsn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_y2k6c")
