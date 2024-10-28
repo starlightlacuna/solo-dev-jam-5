@@ -50,6 +50,7 @@ func _ready() -> void:
 	assert(wizard_scene, "Wizard Scene not set!")
 	assert(wizard_config, "Wizard Config not set!")
 	assert(firebolt_config, "Firebolt Config not set!")
+	Event.enemy_creature_died.connect(_on_enemy_creature_died)
 
 func _process(delta: float) -> void:
 	if shoot_ballista and can_ballista_shoot:
@@ -73,6 +74,9 @@ func _process(delta: float) -> void:
 
 func _on_ballista_attack_timer_timeout() -> void:
 	can_ballista_shoot = true
+
+func _on_enemy_creature_died(value: int) -> void:
+	resource_amount += value
 
 func _on_resource_timer_timeout() -> void:
 	resource_amount += resource_gain

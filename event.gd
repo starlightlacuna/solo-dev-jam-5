@@ -13,3 +13,5 @@ signal resource_amount_changed(value: int)
 
 @warning_ignore("unused_signal")
 signal game_ended(win: bool)
+@warning_ignore("unused_signal")
+signal enemy_creature_died(value: int)

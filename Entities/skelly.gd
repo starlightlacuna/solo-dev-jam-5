@@ -10,6 +10,8 @@ var max_health: int
 var attack_damage: int
 var move_speed: float
 var gravity: float
+var value: int
+
 var current_state: State
 var can_attack: bool
 var attack_targets: Array
@@ -53,18 +55,20 @@ func initialize(p_config: CreatureConfig) -> void:
 	attack_damage = p_config.attack_damage
 	move_speed = p_config.move_speed
 	gravity = p_config.gravity
+	value = p_config.value
 	await ready
 	attack_timer.set_wait_time(p_config.attack_cooldown)
 
 func deal_damage() -> void:
 	for target in attack_targets:
-		if target.has_method("receive_damage"):
+		if target.has_method("receive_damage") and is_instance_valid(target):
 			target.receive_damage(attack_damage)
 
 func receive_damage(amount: int) -> void:
 	health -= amount
 	if health <= 0:
 		queue_free()
+		Event.enemy_creature_died.emit(value)
 
 func start_attack_cooldown() -> void:
 	attack_timer.start()

@@ -18,14 +18,15 @@ func _ready() -> void:
 	set_global_position(initial_position)
 
 func _physics_process(delta: float) -> void:
-		var y_speed = bolt_gravity * delta
-		var new_velocity: Vector2 = get_velocity() + Vector2(0,  y_speed)
-		set_velocity(new_velocity)
-		set_global_rotation(Vector2.DOWN.angle_to(new_velocity))
-		move_and_slide()
-		if get_slide_collision_count() == 0:
-			return
-		var collision: KinematicCollision2D = get_slide_collision(0)
-		if collision.get_collider().has_method("receive_damage"):
-			collision.get_collider().receive_damage(damage)
-		queue_free()
+	var y_speed = bolt_gravity * delta
+	var new_velocity: Vector2 = get_velocity() + Vector2(0,  y_speed)
+	set_velocity(new_velocity)
+	set_global_rotation(Vector2.DOWN.angle_to(new_velocity))
+	move_and_slide()
+	if get_slide_collision_count() == 0:
+		return
+	var collision: KinematicCollision2D = get_slide_collision(0)
+	var target = collision.get_collider()
+	if target.has_method("receive_damage") and is_instance_valid(target):
+		target.receive_damage(damage)
+	queue_free()

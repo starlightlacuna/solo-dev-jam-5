@@ -2288,7 +2288,6 @@ autostart = true
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(549, 224)
 script = ExtResource("6_3gba1")
-active = false
 skelly_scene = ExtResource("13_fxqgc")
 skelly_config = ExtResource("14_uresp")
 brute_scene = ExtResource("11_sldpc")

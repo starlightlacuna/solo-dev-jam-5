@@ -58,7 +58,7 @@ func initialize(p_config: CreatureConfig) -> void:
 
 func deal_damage() -> void:
 	for target in attack_targets:
-		if target.has_method("receive_damage"):
+		if target.has_method("receive_damage") and is_instance_valid(target):
 			target.receive_damage(attack_damage)
 
 func receive_damage(amount: int) -> void:

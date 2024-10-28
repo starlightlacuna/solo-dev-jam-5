@@ -36,5 +36,5 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
-	if body.has_method("receive_damage"):
+	if body.has_method("receive_damage") and is_instance_valid(body):
 		body.receive_damage(damage)
