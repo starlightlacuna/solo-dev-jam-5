@@ -19,6 +19,8 @@ func _ready() -> void:
 
 func _on_enemy_tower_destroyed() -> void:
 	print("Enemy tower destroyed!")
+	Event.game_ended.emit(true)
 
 func _on_player_tower_destroyed() -> void:
 	print("Player tower destroyed!")
+	Event.game_ended.emit(false)

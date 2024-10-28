@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://chek3442qorv2"]
+[gd_scene load_steps=37 format=4 uid="uid://chek3442qorv2"]
 
 [ext_resource type="Texture2D" uid="uid://co843gr3ep3s3" path="res://Assets/tileset.png" id="1_ip8h3"]
 [ext_resource type="Script" path="res://main.gd" id="1_wwu4c"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://d3jvt5762ptcg" path="res://Entities/jumper.tscn" id="20_yfrx4"]
 [ext_resource type="Resource" uid="uid://m4as1duu3y2o" path="res://Entities/Data/jumper_config.tres" id="21_bcsul"]
 [ext_resource type="Resource" uid="uid://nccoqcw567r7" path="res://Entities/Data/brute_config.tres" id="22_8ceaf"]
+[ext_resource type="Texture2D" uid="uid://cflcbjyuhddre" path="res://Assets/Necromancer.png" id="26_57usn"]
 [ext_resource type="PackedScene" uid="uid://dt01fucabw46p" path="res://Entities/enemy_test_creature.tscn" id="26_aa1mp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ocac"]
@@ -2290,6 +2291,9 @@ position = Vector2(333, 224)
 [node name="PlayerTestCreature3" parent="Player/Creatures" instance=ExtResource("18_obt5e")]
 position = Vector2(305, 224)
 
+[node name="Peasant" parent="Player/Creatures" instance=ExtResource("8_ajhle")]
+position = Vector2(452, 212)
+
 [node name="Bolts" type="Node" parent="Player"]
 
 [node name="ResourceTimer" type="Timer" parent="Player"]
@@ -2310,21 +2314,25 @@ jumper_config = ExtResource("21_bcsul")
 collision_layer = 2
 collision_mask = 0
 
+[node name="NecromancerSprite" type="Sprite2D" parent="Enemy/Tower"]
+position = Vector2(-6, -84)
+texture = ExtResource("26_57usn")
+
 [node name="Spawner" type="Marker2D" parent="Enemy"]
 position = Vector2(26, -3)
 
 [node name="Creatures" type="Node" parent="Enemy"]
 
 [node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("13_fxqgc")]
-position = Vector2(435, 224)
+position = Vector2(368, 223)
 config = ExtResource("14_uresp")
 
 [node name="Brute" parent="Enemy/Creatures" instance=ExtResource("11_sldpc")]
-position = Vector2(455, 224)
+position = Vector2(388, 223)
 config = ExtResource("22_8ceaf")
 
 [node name="Jumper" parent="Enemy/Creatures" instance=ExtResource("20_yfrx4")]
-position = Vector2(475, 224)
+position = Vector2(408, 223)
 config = ExtResource("21_bcsul")
 
 [node name="EnemyTestCreature" parent="Enemy/Creatures" instance=ExtResource("26_aa1mp")]
@@ -2427,6 +2435,44 @@ layout_mode = 2
 text = "Wizard
 600"
 
+[node name="GameOverWindow" type="CenterContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 234.0
+offset_top = 128.0
+offset_right = 326.0
+offset_bottom = 186.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GameOverWindow"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameOverWindow/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOverWindow/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOverLabel" type="Label" parent="UI/GameOverWindow/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI/GameOverWindow/PanelContainer/MarginContainer/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+text = "Restart"
+
 [connection signal="timeout" from="Player/Tower/Ballista/AttackTimer" to="Player" method="_on_ballista_attack_timer_timeout"]
 [connection signal="timeout" from="Player/ResourceTimer" to="Player" method="_on_resource_timer_timeout"]
 [connection signal="timeout" from="Enemy/WaveTimer" to="Enemy" method="_on_wave_timer_timeout"]
@@ -2438,3 +2484,4 @@ text = "Wizard
 [connection signal="pressed" from="UI/UnitsContainer/PeasantButton" to="Player" method="_on_peasant_button_pressed"]
 [connection signal="pressed" from="UI/UnitsContainer/KnightButton" to="Player" method="_on_knight_button_pressed"]
 [connection signal="pressed" from="UI/UnitsContainer/WizardButton" to="Player" method="_on_wizard_button_pressed"]
+[connection signal="pressed" from="UI/GameOverWindow/PanelContainer/MarginContainer/VBoxContainer/RestartButton" to="UI" method="_on_restart_button_pressed"]

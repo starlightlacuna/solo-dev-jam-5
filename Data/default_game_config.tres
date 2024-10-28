@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_v7wn8")
-enemy_tower_max_health = 100
-player_tower_max_health = 1000
+enemy_tower_max_health = 10
+player_tower_max_health = 100
 ballista_start_angle = 0.0
 ballista_min_angle = -45.0
 ballista_max_angle = 80.0

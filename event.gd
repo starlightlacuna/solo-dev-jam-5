@@ -10,3 +10,6 @@ signal player_tower_destroyed
 signal player_tower_health_changed(value: int)
 @warning_ignore("unused_signal")
 signal resource_amount_changed(value: int)
+
+@warning_ignore("unused_signal")
+signal game_ended(win: bool)
