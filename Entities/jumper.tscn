@@ -8,14 +8,14 @@
 radius = 4.0
 height = 14.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_o8bg8"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1co5"]
+size = Vector2(12, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xm36t"]
 size = Vector2(20, 10)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_36yjw"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swq4u"]
+size = Vector2(12, 20)
 
 [sub_resource type="Animation" id="Animation_qayv1"]
 resource_name = "Attack"
@@ -78,6 +78,7 @@ radius = 2.23607
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_jaabh")
+jump_speed = 150.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -7)
@@ -94,10 +95,10 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource("CircleShape2D_o8bg8")
+shape = SubResource("RectangleShape2D_x1co5")
 
 [node name="JumpArea" type="Area2D" parent="."]
-position = Vector2(-16, -6)
+position = Vector2(-14, -7)
 collision_layer = 0
 collision_mask = 4
 
@@ -110,7 +111,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-shape = SubResource("CircleShape2D_36yjw")
+shape = SubResource("RectangleShape2D_swq4u")
 
 [node name="Sprite2D" type="Sprite2D" parent="DamageArea"]
 modulate = Color(1, 1, 1, 0)

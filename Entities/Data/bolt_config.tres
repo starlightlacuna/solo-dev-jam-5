@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_npmpr")
 speed = 200.0
-damage = 2
+damage = 3
 gravity = 150.0

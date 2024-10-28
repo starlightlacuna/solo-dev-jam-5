@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_xdqu2")
-max_health = 5
+max_health = 8
 attack_damage = 3
 attack_cooldown = 1.2
 move_speed = 20.0

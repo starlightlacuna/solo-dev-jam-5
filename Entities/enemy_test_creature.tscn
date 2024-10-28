@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt01fucabw46p"]
+
+[ext_resource type="Texture2D" uid="uid://d0mmklm1nxldi" path="res://Assets/Skelly.png" id="1_8mmid"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pvrgl"]
+radius = 5.0
+height = 16.0
+
+[node name="EnemyTestCreature" type="StaticBody2D"]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_8mmid")
+offset = Vector2(0, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_pvrgl")

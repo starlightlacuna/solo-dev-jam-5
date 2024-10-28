@@ -7,5 +7,5 @@ script = ExtResource("1_443ln")
 max_health = 25
 attack_damage = 5
 attack_cooldown = 2.0
-move_speed = 60.0
+move_speed = 15.0
 gravity = 200.0

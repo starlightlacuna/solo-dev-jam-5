@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbf6e0oe1foas"]
+[gd_scene load_steps=11 format=3 uid="uid://cbf6e0oe1foas"]
 
 [ext_resource type="Script" path="res://Entities/knight.gd" id="1_615eb"]
 [ext_resource type="Resource" uid="uid://bjq1uig5tt5tm" path="res://Entities/Data/knight_config.tres" id="2_ccb2b"]
@@ -9,8 +9,11 @@
 radius = 6.0
 height = 14.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ximfi"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gi1ef"]
+size = Vector2(14, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_acaai"]
+size = Vector2(14, 20)
 
 [sub_resource type="Animation" id="Animation_fys72"]
 resource_name = "Attack"
@@ -87,7 +90,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource("CircleShape2D_ximfi")
+shape = SubResource("RectangleShape2D_gi1ef")
 
 [node name="DamageArea" type="Area2D" parent="."]
 position = Vector2(13, -8)
@@ -95,7 +98,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-shape = SubResource("CircleShape2D_ximfi")
+shape = SubResource("RectangleShape2D_acaai")
 
 [node name="Sprite2D" type="Sprite2D" parent="DamageArea"]
 modulate = Color(1, 1, 1, 0)
