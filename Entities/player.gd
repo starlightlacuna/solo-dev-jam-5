@@ -1,9 +1,14 @@
 class_name Player
 extends Node2D
 
-const bolt_scene: PackedScene = preload("res://Entities/bolt.tscn")
-const peasant_scene: PackedScene = preload("res://Entities/peasant.tscn")
-const knight_scene: PackedScene = preload("res://Entities/knight.tscn")
+@export var bolt_scene: PackedScene
+@export var peasant_scene: PackedScene
+@export var peasant_config: CreatureConfig
+@export var knight_scene: PackedScene
+@export var knight_config: CreatureConfig
+@export var wizard_scene: PackedScene
+@export var wizard_config: CreatureConfig
+@export var firebolt_config: ProjectileConfig
 
 @onready var tower: Tower = $Tower
 @onready var ballista: Node2D = %Ballista
@@ -14,14 +19,17 @@ const knight_scene: PackedScene = preload("res://Entities/knight.tscn")
 @onready var spawner: Marker2D = $Spawner
 @onready var creatures: Node = $Creatures
 
-#region Game Settings
+#region Game Config
 var ballista_min_angle: float
 var ballista_max_angle: float
 var ballista_angular_speed: float
+var resource_gain: int
+#endregion
+
+#region Projectile Config
 var bolt_speed: float
 var bolt_damage: int
 var bolt_gravity: float
-var resource_gain: int
 #endregion
 
 var can_ballista_shoot: bool = true
@@ -33,6 +41,15 @@ var resource_amount: int:
 	set(value):
 		resource_amount = value
 		Event.resource_amount_changed.emit(value)
+		
+func _ready() -> void:
+	assert(peasant_scene, "Peasant Scene not set!")
+	assert(peasant_config, "Peasant Config not set!")
+	assert(knight_scene, "Knight Scene not set!")
+	assert(knight_config, "Knight Config not set!")
+	assert(wizard_scene, "Wizard Scene not set!")
+	assert(wizard_config, "Wizard Config not set!")
+	assert(firebolt_config, "Firebolt Config not set!")
 
 func _process(delta: float) -> void:
 	if shoot_ballista and can_ballista_shoot:
@@ -54,7 +71,7 @@ func _process(delta: float) -> void:
 		)
 		ballista.set_global_rotation_degrees(new_angle)
 
-func _on_attack_timer_timeout() -> void:
+func _on_ballista_attack_timer_timeout() -> void:
 	can_ballista_shoot = true
 
 func _on_resource_timer_timeout() -> void:
@@ -79,27 +96,33 @@ func _on_shoot_button_toggled(toggled_on: bool) -> void:
 	shoot_ballista = toggled_on
 
 func _on_peasant_button_pressed() -> void:
-	var new_peasant: Peasant = peasant_scene.instantiate()
-	new_peasant.set_global_position(spawner.get_global_position())
-	creatures.add_child(new_peasant)
+	var peasant: Peasant = peasant_scene.instantiate()
+	peasant.set_global_position(spawner.get_global_position())
+	creatures.add_child(peasant)
 
 func _on_knight_button_pressed() -> void:
-	var new_knight: Knight = knight_scene.instantiate()
-	new_knight.set_global_position(spawner.get_global_position())
-	creatures.add_child(new_knight)
+	var knight: Knight = knight_scene.instantiate()
+	knight.set_global_position(spawner.get_global_position())
+	creatures.add_child(knight)
+
+func _on_wizard_button_pressed() -> void:
+	var wizard: Wizard = wizard_scene.instantiate()
+	wizard.set_global_position(spawner.get_global_position())
+	wizard.initialize(wizard_config, firebolt_config, bolts)
+	creatures.add_child(wizard)
 
 #endregion
 	
-func initialize(game_config: GameConfig) -> void:
+func initialize(game_config: GameConfig, bolt_config: ProjectileConfig) -> void:
 	tower.initialize(game_config.player_tower_max_health)
 	ballista_attack_timer.set_wait_time(game_config.ballista_attack_cooldown)
 	ballista.set_global_rotation_degrees(game_config.ballista_start_angle)
 	ballista_min_angle = game_config.ballista_min_angle
 	ballista_max_angle = game_config.ballista_max_angle
 	ballista_angular_speed = game_config.ballista_angular_speed
-	bolt_speed = game_config.bolt_speed
-	bolt_damage = game_config.bolt_damage
-	bolt_gravity = game_config.bolt_gravity
+	bolt_speed = bolt_config.speed
+	bolt_damage = bolt_config.damage
+	bolt_gravity = bolt_config.gravity
 	resource_amount = game_config.player_resource_amount
 	resource_gain = game_config.player_resource_gain
 	resource_timer.set_wait_time(game_config.player_resource_cooldown)
@@ -107,13 +130,13 @@ func initialize(game_config: GameConfig) -> void:
 func spawn_bolt() -> void:
 	var bolt: Bolt = bolt_scene.instantiate()
 	var bolt_velocity = Vector2.RIGHT.rotated(ballista.get_global_rotation()) * bolt_speed
-	var bolt_config: BoltConfig = BoltConfig.new(
+	var bolt_data: BoltData = BoltData.new(
 		bolt_damage,
 		bolt_gravity,
 		bolt_velocity,
 		bolt_source.get_global_position()
 	)
-	bolt.initialize(bolt_config)
+	bolt.initialize(bolt_data)
 	bolts.add_child(bolt)
 	can_ballista_shoot = false
 	ballista_attack_timer.start()

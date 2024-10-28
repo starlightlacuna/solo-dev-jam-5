@@ -1,17 +1,27 @@
-[gd_scene load_steps=21 format=4 uid="uid://chek3442qorv2"]
+[gd_scene load_steps=31 format=4 uid="uid://chek3442qorv2"]
 
 [ext_resource type="Texture2D" uid="uid://co843gr3ep3s3" path="res://Assets/tileset.png" id="1_ip8h3"]
 [ext_resource type="Script" path="res://main.gd" id="1_wwu4c"]
 [ext_resource type="Texture2D" uid="uid://cmbt2w1cpuopa" path="res://Assets/kenney_1-bit-pack/Tilesheet/monochrome_packed.png" id="2_2tsgh"]
+[ext_resource type="Resource" uid="uid://x8pojjefvpld" path="res://Data/default_game_config.tres" id="2_er4c2"]
+[ext_resource type="Resource" uid="uid://cl6x2nq2gv0hm" path="res://Entities/Data/bolt_config.tres" id="3_i6h48"]
 [ext_resource type="Texture2D" uid="uid://b3mrmlnhxveu3" path="res://Assets/kenney_1-bit-pack/Tilesheet/monochrome-transparent_packed.png" id="3_ykdcd"]
 [ext_resource type="PackedScene" uid="uid://h2ugnym5uis6" path="res://Entities/tower.tscn" id="4_b6boc"]
 [ext_resource type="Script" path="res://Entities/player.gd" id="4_fh7ap"]
 [ext_resource type="Script" path="res://Entities/enemy.gd" id="6_3gba1"]
 [ext_resource type="Texture2D" uid="uid://cqu4m6n5kviym" path="res://Assets/Ballista.png" id="7_nj5e5"]
+[ext_resource type="PackedScene" uid="uid://hj2xe4w5kw0a" path="res://Entities/bolt.tscn" id="8_a1orp"]
 [ext_resource type="PackedScene" uid="uid://ca5iy6mqquw5t" path="res://Entities/peasant.tscn" id="8_ajhle"]
 [ext_resource type="PackedScene" uid="uid://cbf6e0oe1foas" path="res://Entities/knight.tscn" id="8_mesmd"]
+[ext_resource type="PackedScene" uid="uid://yvv83gxofu3f" path="res://Entities/wizard.tscn" id="10_a5la5"]
+[ext_resource type="Resource" uid="uid://cqtr5dtngwlqq" path="res://Entities/Data/peasant_config.tres" id="10_eoa1f"]
 [ext_resource type="Script" path="res://ui.gd" id="10_s4k1f"]
 [ext_resource type="PackedScene" uid="uid://snggw4c0unvi" path="res://Entities/brute.tscn" id="11_sldpc"]
+[ext_resource type="Resource" uid="uid://bjq1uig5tt5tm" path="res://Entities/Data/knight_config.tres" id="12_okoy4"]
+[ext_resource type="PackedScene" uid="uid://b6kv2ioeai52w" path="res://Entities/skelly.tscn" id="13_fxqgc"]
+[ext_resource type="Resource" uid="uid://ba8u0sayexb81" path="res://Entities/Data/wizard_config.tres" id="13_lmgdu"]
+[ext_resource type="Resource" uid="uid://g8bx7c4m26lq" path="res://Entities/Data/skelly_config.tres" id="14_uresp"]
+[ext_resource type="Resource" uid="uid://cqvrxbmaoxfo" path="res://Entities/Data/firebolt_config.tres" id="15_kqrbp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ocac"]
 resource_name = "Brick"
@@ -2208,6 +2218,8 @@ bg_color = Color(0.741176, 0, 0.180392, 1)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_wwu4c")
+game_config = ExtResource("2_er4c2")
+bolt_config = ExtResource("3_i6h48")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -167.0
@@ -2232,6 +2244,14 @@ zoom = Vector2(2, 2)
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(11, 224)
 script = ExtResource("4_fh7ap")
+bolt_scene = ExtResource("8_a1orp")
+peasant_scene = ExtResource("8_ajhle")
+peasant_config = ExtResource("10_eoa1f")
+knight_scene = ExtResource("8_mesmd")
+knight_config = ExtResource("12_okoy4")
+wizard_scene = ExtResource("10_a5la5")
+wizard_config = ExtResource("13_lmgdu")
+firebolt_config = ExtResource("15_kqrbp")
 
 [node name="Tower" parent="Player" instance=ExtResource("4_b6boc")]
 collision_layer = 4
@@ -2256,11 +2276,11 @@ position = Vector2(-24, 0)
 
 [node name="Creatures" type="Node" parent="Player"]
 
-[node name="Knight" parent="Player/Creatures" instance=ExtResource("8_mesmd")]
-position = Vector2(243, 219)
-
-[node name="Peasant" parent="Player/Creatures" instance=ExtResource("8_ajhle")]
-position = Vector2(199, 219)
+[node name="Wizard" parent="Player/Creatures" node_paths=PackedStringArray("firebolts_group") instance=ExtResource("10_a5la5")]
+position = Vector2(55, 202)
+config = ExtResource("13_lmgdu")
+firebolt_config = ExtResource("3_i6h48")
+firebolts_group = NodePath("../../Bolts")
 
 [node name="Bolts" type="Node" parent="Player"]
 
@@ -2280,8 +2300,20 @@ position = Vector2(24, 0)
 
 [node name="Creatures" type="Node" parent="Enemy"]
 
+[node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("13_fxqgc")]
+position = Vector2(413, 164)
+config = ExtResource("14_uresp")
+
+[node name="Skelly4" parent="Enemy/Creatures" instance=ExtResource("13_fxqgc")]
+position = Vector2(433, 179)
+config = ExtResource("14_uresp")
+
+[node name="Skelly5" parent="Enemy/Creatures" instance=ExtResource("13_fxqgc")]
+position = Vector2(395, 190)
+config = ExtResource("14_uresp")
+
 [node name="Brute" parent="Enemy/Creatures" instance=ExtResource("11_sldpc")]
-position = Vector2(289, 216)
+position = Vector2(477, 208)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -2378,7 +2410,7 @@ layout_mode = 2
 text = "Wizard
 600"
 
-[connection signal="timeout" from="Player/Tower/Ballista/AttackTimer" to="Player" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="Player/Tower/Ballista/AttackTimer" to="Player" method="_on_ballista_attack_timer_timeout"]
 [connection signal="timeout" from="Player/ResourceTimer" to="Player" method="_on_resource_timer_timeout"]
 [connection signal="toggled" from="UI/ShootButton" to="Player" method="_on_shoot_button_toggled"]
 [connection signal="button_down" from="UI/AngleContainer/RaiseButton" to="Player" method="_on_raise_button_button_down"]
@@ -2387,3 +2419,4 @@ text = "Wizard
 [connection signal="button_up" from="UI/AngleContainer/LowerButton" to="Player" method="_on_lower_button_button_up"]
 [connection signal="pressed" from="UI/UnitsContainer/PeasantButton" to="Player" method="_on_peasant_button_pressed"]
 [connection signal="pressed" from="UI/UnitsContainer/KnightButton" to="Player" method="_on_knight_button_pressed"]
+[connection signal="pressed" from="UI/UnitsContainer/WizardButton" to="Player" method="_on_wizard_button_pressed"]

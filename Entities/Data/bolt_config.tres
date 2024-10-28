@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ProjectileConfig" load_steps=2 format=3 uid="uid://cl6x2nq2gv0hm"]
+
+[ext_resource type="Script" path="res://Entities/Data/projectile_config.gd" id="1_npmpr"]
+
+[resource]
+script = ExtResource("1_npmpr")
+speed = 200.0
+damage = 2
+gravity = 150.0

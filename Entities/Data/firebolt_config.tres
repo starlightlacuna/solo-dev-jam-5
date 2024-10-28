@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ProjectileConfig" load_steps=2 format=3 uid="uid://cqvrxbmaoxfo"]
+
+[ext_resource type="Script" path="res://Entities/Data/projectile_config.gd" id="1_r6ynl"]
+
+[resource]
+script = ExtResource("1_r6ynl")
+speed = 150.0
+damage = 10
+gravity = 150.0
