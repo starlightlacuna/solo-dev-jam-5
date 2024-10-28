@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://chek3442qorv2"]
+[gd_scene load_steps=34 format=4 uid="uid://chek3442qorv2"]
 
 [ext_resource type="Texture2D" uid="uid://co843gr3ep3s3" path="res://Assets/tileset.png" id="1_ip8h3"]
 [ext_resource type="Script" path="res://main.gd" id="1_wwu4c"]
@@ -16,11 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://yvv83gxofu3f" path="res://Entities/wizard.tscn" id="10_a5la5"]
 [ext_resource type="Resource" uid="uid://cqtr5dtngwlqq" path="res://Entities/Data/peasant_config.tres" id="10_eoa1f"]
 [ext_resource type="Script" path="res://ui.gd" id="10_s4k1f"]
+[ext_resource type="PackedScene" uid="uid://snggw4c0unvi" path="res://Entities/brute.tscn" id="11_sldpc"]
 [ext_resource type="Resource" uid="uid://bjq1uig5tt5tm" path="res://Entities/Data/knight_config.tres" id="12_okoy4"]
+[ext_resource type="PackedScene" uid="uid://b6kv2ioeai52w" path="res://Entities/skelly.tscn" id="13_fxqgc"]
 [ext_resource type="Resource" uid="uid://ba8u0sayexb81" path="res://Entities/Data/wizard_config.tres" id="13_lmgdu"]
+[ext_resource type="Resource" uid="uid://g8bx7c4m26lq" path="res://Entities/Data/skelly_config.tres" id="14_uresp"]
 [ext_resource type="Resource" uid="uid://cqvrxbmaoxfo" path="res://Entities/Data/firebolt_config.tres" id="15_kqrbp"]
 [ext_resource type="PackedScene" uid="uid://d3jvt5762ptcg" path="res://Entities/jumper.tscn" id="20_yfrx4"]
 [ext_resource type="Resource" uid="uid://m4as1duu3y2o" path="res://Entities/Data/jumper_config.tres" id="21_bcsul"]
+[ext_resource type="Resource" uid="uid://nccoqcw567r7" path="res://Entities/Data/brute_config.tres" id="22_8ceaf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ocac"]
 resource_name = "Brick"
@@ -2283,19 +2287,32 @@ autostart = true
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(549, 224)
 script = ExtResource("6_3gba1")
+wave_delay = 3.0
+skelly_scene = ExtResource("13_fxqgc")
+skelly_config = ExtResource("14_uresp")
+brute_scene = ExtResource("11_sldpc")
+brute_config = ExtResource("22_8ceaf")
+jumper_scene = ExtResource("20_yfrx4")
+jumper_config = ExtResource("21_bcsul")
 
 [node name="Tower" parent="Enemy" instance=ExtResource("4_b6boc")]
 collision_layer = 2
 collision_mask = 0
 
 [node name="Spawner" type="Marker2D" parent="Enemy"]
-position = Vector2(24, 0)
+position = Vector2(26, -3)
 
 [node name="Creatures" type="Node" parent="Enemy"]
+
+[node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("13_fxqgc")]
+
+[node name="Brute" parent="Enemy/Creatures" instance=ExtResource("11_sldpc")]
 
 [node name="Jumper" parent="Enemy/Creatures" instance=ExtResource("20_yfrx4")]
 position = Vector2(478, 222)
 config = ExtResource("21_bcsul")
+
+[node name="WaveTimer" type="Timer" parent="Enemy"]
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -2394,6 +2411,7 @@ text = "Wizard
 
 [connection signal="timeout" from="Player/Tower/Ballista/AttackTimer" to="Player" method="_on_ballista_attack_timer_timeout"]
 [connection signal="timeout" from="Player/ResourceTimer" to="Player" method="_on_resource_timer_timeout"]
+[connection signal="timeout" from="Enemy/WaveTimer" to="Enemy" method="_on_wave_timer_timeout"]
 [connection signal="toggled" from="UI/ShootButton" to="Player" method="_on_shoot_button_toggled"]
 [connection signal="button_down" from="UI/AngleContainer/RaiseButton" to="Player" method="_on_raise_button_button_down"]
 [connection signal="button_up" from="UI/AngleContainer/RaiseButton" to="Player" method="_on_raise_button_button_up"]

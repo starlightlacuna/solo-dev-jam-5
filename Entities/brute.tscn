@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://snggw4c0unvi"]
+[gd_scene load_steps=10 format=3 uid="uid://snggw4c0unvi"]
 
 [ext_resource type="Texture2D" uid="uid://bs8xglqn4vawa" path="res://Assets/Brute.png" id="1_lfja4"]
 [ext_resource type="Script" path="res://Entities/brute.gd" id="1_psx55"]
-[ext_resource type="Resource" uid="uid://nccoqcw567r7" path="res://Entities/Data/brute_config.tres" id="2_wfww0"]
 [ext_resource type="Texture2D" uid="uid://koiiqribphhe" path="res://Assets/Punch.png" id="3_atb88"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tlo10"]
@@ -96,7 +95,6 @@ _data = {
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_psx55")
-config = ExtResource("2_wfww0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -10)
@@ -130,6 +128,7 @@ texture = ExtResource("3_atb88")
 offset = Vector2(0.5, 0.5)
 
 [node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

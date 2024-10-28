@@ -77,6 +77,7 @@ func initialize(p_config: CreatureConfig) -> void:
 	attack_damage = p_config.attack_damage
 	move_speed = p_config.move_speed
 	gravity = p_config.gravity
+	await ready
 	attack_timer.set_wait_time(p_config.attack_cooldown)
 
 func deal_damage() -> void:
