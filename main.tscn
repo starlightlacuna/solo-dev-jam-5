@@ -2276,7 +2276,7 @@ offset = Vector2(-2, 2)
 [node name="AttackTimer" type="Timer" parent="Player/Tower/Ballista"]
 
 [node name="Spawner" type="Marker2D" parent="Player"]
-position = Vector2(-24, 0)
+position = Vector2(-27, -1)
 
 [node name="Creatures" type="Node" parent="Player"]
 
@@ -2308,7 +2308,7 @@ position = Vector2(-6, -84)
 texture = ExtResource("26_57usn")
 
 [node name="Spawner" type="Marker2D" parent="Enemy"]
-position = Vector2(26, -3)
+position = Vector2(27, -1)
 
 [node name="Creatures" type="Node" parent="Enemy"]
 
