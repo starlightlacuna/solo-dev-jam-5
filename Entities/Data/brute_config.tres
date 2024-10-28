@@ -9,3 +9,4 @@ attack_damage = 5
 attack_cooldown = 2.0
 move_speed = 15.0
 gravity = 200.0
+value = 60

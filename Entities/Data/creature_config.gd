@@ -6,3 +6,4 @@ extends Resource
 @export var attack_cooldown: float = 1.0
 @export var move_speed: float = 100.0
 @export var gravity: float = 200.0
+@export var value: int = 100

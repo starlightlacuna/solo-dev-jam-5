@@ -50,9 +50,9 @@ func initialize(game_config: GameConfig) -> void:
 	player_tower_health_bar.set_max(game_config.player_tower_max_health)
 	_on_resource_amount_changed(game_config.player_resource_amount)
 	
-	peasant_cost = game_config.peasant_cost
-	knight_cost = game_config.knight_cost
+	#peasant_cost = game_config.peasant_cost
+	#knight_cost = game_config.knight_cost
 	
-	peasant_button.set_text("Peasant\n%d" % peasant_cost)
-	knight_button.set_text("Knight\n%d" % knight_cost)
+	#peasant_button.set_text("Peasant\n%d" % peasant_cost)
+	#knight_button.set_text("Knight\n%d" % knight_cost)
 	

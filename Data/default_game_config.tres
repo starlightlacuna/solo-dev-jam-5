@@ -4,15 +4,13 @@
 
 [resource]
 script = ExtResource("1_v7wn8")
-enemy_tower_max_health = 10
+enemy_tower_max_health = 100
 player_tower_max_health = 100
 ballista_start_angle = 0.0
 ballista_min_angle = -45.0
 ballista_max_angle = 80.0
 ballista_attack_cooldown = 0.6
-ballista_angular_speed = 20.0
-player_resource_amount = 0
-player_resource_gain = 20
-player_resource_cooldown = 1.0
-peasant_cost = 100
-knight_cost = 300
+ballista_angular_speed = 25.0
+player_resource_amount = 1000
+player_resource_gain = 50
+player_resource_cooldown = 3.0

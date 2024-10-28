@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ca5iy6mqquw5t"]
+[gd_scene load_steps=10 format=3 uid="uid://ca5iy6mqquw5t"]
 
 [ext_resource type="Script" path="res://Entities/peasant.gd" id="1_67xud"]
 [ext_resource type="Texture2D" uid="uid://yvr678fdk55d" path="res://Assets/Peasant.png" id="1_ubhn3"]
-[ext_resource type="Resource" uid="uid://cqtr5dtngwlqq" path="res://Entities/Data/peasant_config.tres" id="2_46k7e"]
 [ext_resource type="Texture2D" uid="uid://bg5utk7ghotxx" path="res://Assets/Thrust.png" id="3_ljl63"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tkd6o"]
@@ -99,7 +98,6 @@ _data = {
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_67xud")
-config = ExtResource("2_46k7e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -7)

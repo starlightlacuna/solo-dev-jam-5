@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://chek3442qorv2"]
+[gd_scene load_steps=35 format=4 uid="uid://chek3442qorv2"]
 
 [ext_resource type="Texture2D" uid="uid://co843gr3ep3s3" path="res://Assets/tileset.png" id="1_ip8h3"]
 [ext_resource type="Script" path="res://main.gd" id="1_wwu4c"]
@@ -22,12 +22,10 @@
 [ext_resource type="Resource" uid="uid://ba8u0sayexb81" path="res://Entities/Data/wizard_config.tres" id="13_lmgdu"]
 [ext_resource type="Resource" uid="uid://g8bx7c4m26lq" path="res://Entities/Data/skelly_config.tres" id="14_uresp"]
 [ext_resource type="Resource" uid="uid://cqvrxbmaoxfo" path="res://Entities/Data/firebolt_config.tres" id="15_kqrbp"]
-[ext_resource type="PackedScene" uid="uid://boq82an1wpwow" path="res://Entities/player_test_creature.tscn" id="18_obt5e"]
 [ext_resource type="PackedScene" uid="uid://d3jvt5762ptcg" path="res://Entities/jumper.tscn" id="20_yfrx4"]
 [ext_resource type="Resource" uid="uid://m4as1duu3y2o" path="res://Entities/Data/jumper_config.tres" id="21_bcsul"]
 [ext_resource type="Resource" uid="uid://nccoqcw567r7" path="res://Entities/Data/brute_config.tres" id="22_8ceaf"]
 [ext_resource type="Texture2D" uid="uid://cflcbjyuhddre" path="res://Assets/Necromancer.png" id="26_57usn"]
-[ext_resource type="PackedScene" uid="uid://dt01fucabw46p" path="res://Entities/enemy_test_creature.tscn" id="26_aa1mp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ocac"]
 resource_name = "Brick"
@@ -2282,18 +2280,6 @@ position = Vector2(-24, 0)
 
 [node name="Creatures" type="Node" parent="Player"]
 
-[node name="PlayerTestCreature" parent="Player/Creatures" instance=ExtResource("18_obt5e")]
-position = Vector2(346, 224)
-
-[node name="PlayerTestCreature2" parent="Player/Creatures" instance=ExtResource("18_obt5e")]
-position = Vector2(333, 224)
-
-[node name="PlayerTestCreature3" parent="Player/Creatures" instance=ExtResource("18_obt5e")]
-position = Vector2(305, 224)
-
-[node name="Peasant" parent="Player/Creatures" instance=ExtResource("8_ajhle")]
-position = Vector2(452, 212)
-
 [node name="Bolts" type="Node" parent="Player"]
 
 [node name="ResourceTimer" type="Timer" parent="Player"]
@@ -2322,21 +2308,6 @@ texture = ExtResource("26_57usn")
 position = Vector2(26, -3)
 
 [node name="Creatures" type="Node" parent="Enemy"]
-
-[node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("13_fxqgc")]
-position = Vector2(368, 223)
-config = ExtResource("14_uresp")
-
-[node name="Brute" parent="Enemy/Creatures" instance=ExtResource("11_sldpc")]
-position = Vector2(388, 223)
-config = ExtResource("22_8ceaf")
-
-[node name="Jumper" parent="Enemy/Creatures" instance=ExtResource("20_yfrx4")]
-position = Vector2(408, 223)
-config = ExtResource("21_bcsul")
-
-[node name="EnemyTestCreature" parent="Enemy/Creatures" instance=ExtResource("26_aa1mp")]
-position = Vector2(122, 224)
 
 [node name="WaveTimer" type="Timer" parent="Enemy"]
 

@@ -4,8 +4,9 @@
 
 [resource]
 script = ExtResource("1_8yu8e")
-max_health = 10
-attack_damage = 3
-attack_cooldown = 1.0
-move_speed = 20.0
+max_health = 20
+attack_damage = 6
+attack_cooldown = 1.6
+move_speed = 24.0
 gravity = 200.0
+value = 300

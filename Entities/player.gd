@@ -96,16 +96,30 @@ func _on_shoot_button_toggled(toggled_on: bool) -> void:
 	shoot_ballista = toggled_on
 
 func _on_peasant_button_pressed() -> void:
+	if resource_amount < peasant_config.value:
+		return
+	
+	resource_amount -= peasant_config.value
 	var peasant: Peasant = peasant_scene.instantiate()
+	peasant.initialize(peasant_config)
 	peasant.set_global_position(spawner.get_global_position())
 	creatures.add_child(peasant)
 
 func _on_knight_button_pressed() -> void:
+	if resource_amount < knight_config.value:
+		return
+	
+	resource_amount -= knight_config.value
 	var knight: Knight = knight_scene.instantiate()
+	knight.initialize(knight_config)
 	knight.set_global_position(spawner.get_global_position())
 	creatures.add_child(knight)
 
 func _on_wizard_button_pressed() -> void:
+	if resource_amount < wizard_config.value:
+		return
+	
+	resource_amount -= wizard_config.value
 	var wizard: Wizard = wizard_scene.instantiate()
 	wizard.set_global_position(spawner.get_global_position())
 	wizard.initialize(wizard_config, firebolt_config, bolts)
