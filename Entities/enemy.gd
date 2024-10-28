@@ -5,7 +5,7 @@ const SKELLY: String = "Skelly"
 const BRUTE: String = "Brute"
 const JUMPER: String = "Jumper"
 
-@export var wave_delay: float = 8.0
+@export var active: bool = true
 @export var wave_counter: int = 0
 @export var initial_wave_delay: float = 1.0
 
@@ -29,12 +29,25 @@ var wave_index: int = 0
 var easy_waves: Array = [
 	[SKELLY, 1.6, SKELLY, 0.8, SKELLY, 1.6, SKELLY],
 	[SKELLY, 0.8, SKELLY, 0.8, SKELLY, 0.8, SKELLY],
-	[SKELLY, 0.8, SKELLY, 0.8, SKELLY]
+	[SKELLY, 0.8, SKELLY, 0.8, SKELLY],
+	[SKELLY, 0.8, SKELLY, 1.6, SKELLY, 0.8, SKELLY]
 ]
 var medium_waves: Array = [
-	[]
+	[SKELLY, 0.8, SKELLY, 0.8, SKELLY, 0.8, SKELLY],
+	[BRUTE, 2.4, SKELLY, 0.8, SKELLY, 0.8, SKELLY],
+	[SKELLY, 0.8, SKELLY, 0.8, SKELLY, 1.6, SKELLY, 0.8, SKELLY],
+	[SKELLY, 0.8, SKELLY, 1.6, SKELLY, 0.8, SKELLY, 0.8, SKELLY],
+	[SKELLY, 0.8, SKELLY, 0.8, SKELLY, 0.8, SKELLY, 0.8, BRUTE]
 ]
-var hard_waves: Array = [[]]
+var hard_waves: Array = [
+	[SKELLY, 0.8, SKELLY, 0.8, SKELLY, 0.8, SKELLY, 0.8, BRUTE],
+	[SKELLY, 0.8, SKELLY, 0.8, JUMPER, 0.8, JUMPER],
+	[SKELLY, 0.8, SKELLY, 0.8, SKELLY, 1.6, BRUTE, 0.8, JUMPER],
+	[SKELLY, 0.4, SKELLY, 0.4, SKELLY, 0.4, SKELLY, 0.4, SKELLY, 0.4, SKELLY],
+	[BRUTE, 1.6, JUMPER, 0.8, JUMPER],
+	[BRUTE, 2.4, BRUTE],
+	[SKELLY, 0.4, SKELLY, 0.4, SKELLY, 1.2, SKELLY, 0.4, SKELLY, 0.4, SKELLY],
+]
 
 func _ready() -> void:
 	assert(skelly_scene, "Skelly Scene not set!")
@@ -45,27 +58,47 @@ func _ready() -> void:
 	assert(jumper_config, "Jumper Config not set!")
 
 func _get_wave_array() -> Array:
-	var index: int
+	var old_array: Array = current_wave
+	
+	var waves: Array
 	if wave_counter > 16:
-		index = randi_range(0, hard_waves.size() - 1)
-		return hard_waves[index]
-	if wave_counter > 8:
-		index = randi_range(0, medium_waves.size() - 1)
-		return medium_waves[index]
-	index = randi_range(0, easy_waves.size() - 1)
-	return easy_waves[index]
+		waves = hard_waves
+	elif wave_counter > 8:
+		waves = medium_waves
+	else:
+		waves = easy_waves
+	
+	var repeat_count: int = 3
+	var index: int
+	while repeat_count > 0:
+		index = randi_range(0, waves.size() - 1)
+		if waves[index] == old_array:
+			repeat_count -= 1
+		else:
+			break
+	return waves[index]
+
+func _get_wave_delay() -> float:
+	var max_delay: float = 10
+	var min_delay: float = 4
+	# Every 4 waves, the delay decreases by 0.5 seconds until min_delay is reached
+	var delay: float = max_delay - (floorf(float(wave_counter) / 4.0) / 2.0)
+	return maxf(delay, min_delay)
 
 func _on_wave_timer_timeout() -> void:
+	if wave_counter == 0 && spawn_index == 0:
+		wave_timer.set_wait_time(_get_wave_delay())
 	if spawn_index >= current_wave.size():
 		current_wave = _get_wave_array()
 		spawn_index = 0
 		wave_counter += 1
-		wave_timer.set_wait_time(wave_delay)
+		var new_wave_delay: float = _get_wave_delay()
+		wave_timer.set_wait_time(new_wave_delay)
 		wave_timer.start()
+		print("Wave %d, delay %f" % [wave_counter, new_wave_delay])
 		return
 	
 	var current_step = current_wave[spawn_index]
-	print(current_step)
 	match current_step:
 		SKELLY:
 			var skelly: Skelly = skelly_scene.instantiate()
@@ -73,10 +106,18 @@ func _on_wave_timer_timeout() -> void:
 			skelly.set_global_position(spawner.get_global_position())
 			creatures.add_child(skelly)
 		BRUTE:
-			print(BRUTE)
+			var brute: Brute = brute_scene.instantiate()
+			brute.initialize(brute_config)
+			brute.set_global_position(spawner.get_global_position())
+			creatures.add_child(brute)
 		JUMPER:
-			print(JUMPER)
+			var jumper: Jumper = jumper_scene.instantiate()
+			jumper.initialize(jumper_config)
+			jumper.set_global_position(spawner.get_global_position())
+			creatures.add_child(jumper)
 	
+	# TODO: There's a bug here somewhere. The timer between waves is ever so 
+	# slightly longer than the wave times.
 	spawn_index += 1
 	if spawn_index < current_wave.size():
 		wave_timer.set_wait_time(current_wave[spawn_index])
@@ -85,6 +126,7 @@ func _on_wave_timer_timeout() -> void:
 
 func initialize(game_config: GameConfig) -> void:
 	tower.initialize(game_config.enemy_tower_max_health)
-	current_wave = _get_wave_array()
-	wave_timer.set_wait_time(initial_wave_delay)
-	wave_timer.start()
+	if active:
+		current_wave = _get_wave_array()
+		wave_timer.set_wait_time(initial_wave_delay)
+		wave_timer.start()

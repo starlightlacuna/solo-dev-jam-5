@@ -2287,7 +2287,7 @@ autostart = true
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(549, 224)
 script = ExtResource("6_3gba1")
-wave_delay = 3.0
+active = false
 skelly_scene = ExtResource("13_fxqgc")
 skelly_config = ExtResource("14_uresp")
 brute_scene = ExtResource("11_sldpc")
@@ -2303,14 +2303,6 @@ collision_mask = 0
 position = Vector2(26, -3)
 
 [node name="Creatures" type="Node" parent="Enemy"]
-
-[node name="Skelly" parent="Enemy/Creatures" instance=ExtResource("13_fxqgc")]
-
-[node name="Brute" parent="Enemy/Creatures" instance=ExtResource("11_sldpc")]
-
-[node name="Jumper" parent="Enemy/Creatures" instance=ExtResource("20_yfrx4")]
-position = Vector2(478, 222)
-config = ExtResource("21_bcsul")
 
 [node name="WaveTimer" type="Timer" parent="Enemy"]
 
