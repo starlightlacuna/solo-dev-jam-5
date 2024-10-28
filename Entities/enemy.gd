@@ -79,7 +79,7 @@ func _get_wave_array() -> Array:
 	return waves[index]
 
 func _get_wave_delay() -> float:
-	var max_delay: float = 10
+	var max_delay: float = 7.5
 	var min_delay: float = 4
 	# Every 4 waves, the delay decreases by 0.5 seconds until min_delay is reached
 	var delay: float = max_delay - (floorf(float(wave_counter) / 4.0) / 2.0)

@@ -2285,6 +2285,10 @@ position = Vector2(-24, 0)
 [node name="ResourceTimer" type="Timer" parent="Player"]
 autostart = true
 
+[node name="SpawnTimer" type="Timer" parent="Player"]
+wait_time = 0.3
+one_shot = true
+
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(549, 224)
 script = ExtResource("6_3gba1")
@@ -2445,6 +2449,7 @@ text = "Restart"
 
 [connection signal="timeout" from="Player/Tower/Ballista/AttackTimer" to="Player" method="_on_ballista_attack_timer_timeout"]
 [connection signal="timeout" from="Player/ResourceTimer" to="Player" method="_on_resource_timer_timeout"]
+[connection signal="timeout" from="Player/SpawnTimer" to="Player" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Enemy/WaveTimer" to="Enemy" method="_on_wave_timer_timeout"]
 [connection signal="toggled" from="UI/ShootButton" to="Player" method="_on_shoot_button_toggled"]
 [connection signal="button_down" from="UI/AngleContainer/RaiseButton" to="Player" method="_on_raise_button_button_down"]

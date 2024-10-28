@@ -18,6 +18,9 @@ extends Node2D
 @onready var resource_timer: Timer = $ResourceTimer
 @onready var spawner: Marker2D = $Spawner
 @onready var creatures: Node = $Creatures
+@onready var spawn_timer: Timer = $SpawnTimer
+
+var can_spawn: bool = true
 
 #region Game Config
 var ballista_min_angle: float
@@ -81,6 +84,9 @@ func _on_enemy_creature_died(value: int) -> void:
 func _on_resource_timer_timeout() -> void:
 	resource_amount += resource_gain
 
+func _on_spawn_timer_timeout() -> void:
+	can_spawn = true
+
 #region Button Handlers
 # These are code crimes. I think that ideally we wouldn't be connected directly
 # to the buttons, but there's no time for setting up a signal bubble chain.
@@ -102,12 +108,15 @@ func _on_shoot_button_toggled(toggled_on: bool) -> void:
 func _on_peasant_button_pressed() -> void:
 	if resource_amount < peasant_config.value:
 		return
-	
+	if not can_spawn:
+		return
 	resource_amount -= peasant_config.value
 	var peasant: Peasant = peasant_scene.instantiate()
 	peasant.initialize(peasant_config)
 	peasant.set_global_position(spawner.get_global_position())
 	creatures.add_child(peasant)
+	can_spawn = false
+	spawn_timer.start()
 
 func _on_knight_button_pressed() -> void:
 	if resource_amount < knight_config.value:
